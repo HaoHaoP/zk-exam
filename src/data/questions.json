@@ -106,6 +106,13 @@
   "src_answer": "02325-202304-参考答案.pdf",
   "modules": [
    "中断与I/O系统"
+  ],
+  "stemFigures": [
+   {
+    "file": "02325-202304-q27-stem.jpg",
+    "caption": "原题影像 · 第27题",
+    "desc": "从原卷扫描件裁切，含题目中的图表"
+   }
   ]
  },
  {
@@ -121,6 +128,20 @@
   "src_answer": "02325-202304-参考答案.pdf",
   "modules": [
    "流水线"
+  ],
+  "answerFigures": [
+   {
+    "file": "02325-202304-q28-ans.png",
+    "caption": "答28图",
+    "desc": "冲突向量状态转移图"
+   }
+  ],
+  "stemFigures": [
+   {
+    "file": "02325-202304-q28-stem.jpg",
+    "caption": "原题影像 · 第28题",
+    "desc": "从原卷扫描件裁切，含题目中的图表"
+   }
   ]
  },
  {
@@ -227,6 +248,13 @@
   "src_answer": "02325-202310-参考答案.pdf",
   "modules": [
    "中断与I/O系统"
+  ],
+  "answerFigures": [
+   {
+    "file": "02325-202310-q26-ans.png",
+    "caption": "答26图",
+    "desc": "中断响应与处理时序图"
+   }
   ]
  },
  {
@@ -272,6 +300,13 @@
   "src_answer": "02325-202310-参考答案.pdf",
   "modules": [
    "流水线"
+  ],
+  "answerFigures": [
+   {
+    "file": "02325-202310-q29-ans.png",
+    "caption": "答29图",
+    "desc": "乘-加双功能流水线点积运算时空图"
+   }
   ]
  },
  {
@@ -363,6 +398,13 @@
   "src_answer": "02325-202404-参考答案.pdf",
   "modules": [
    "系统结构基本概念与指令系统"
+  ],
+  "answerFigures": [
+   {
+    "file": "02325-202404-q26-ans.jpeg",
+    "caption": "答26图",
+    "desc": "哈夫曼树"
+   }
   ]
  },
  {
@@ -393,6 +435,20 @@
   "src_answer": "02325-202404-参考答案.pdf",
   "modules": [
    "流水线"
+  ],
+  "answerFigures": [
+   {
+    "file": "02325-202404-q28-ans.jpeg",
+    "caption": "答28图",
+    "desc": "五段流水线时空图"
+   }
+  ],
+  "stemFigures": [
+   {
+    "file": "02325-202404-q28-stem.jpg",
+    "caption": "原题影像 · 第28题",
+    "desc": "从原卷扫描件裁切，含题目中的图表"
+   }
   ]
  },
  {
@@ -408,6 +464,13 @@
   "src_answer": "02325-202404-参考答案.pdf",
   "modules": [
    "并行处理与多处理机"
+  ],
+  "answerFigures": [
+   {
+    "file": "02325-202404-q29-ans.png",
+    "caption": "答29图",
+    "desc": "FORK/JOIN 并行程序资源时间图"
+   }
   ]
  },
  {
@@ -500,6 +563,13 @@
   "src_answer": "02325-202410-参考答案.pdf",
   "modules": [
    "系统结构基本概念与指令系统"
+  ],
+  "answerFigures": [
+   {
+    "file": "02325-202410-q26-ans.jpeg",
+    "caption": "答26图",
+    "desc": "两种码长扩展操作码编码表"
+   }
   ]
  },
  {
@@ -530,6 +600,13 @@
   "src_answer": "02325-202410-参考答案.pdf",
   "modules": [
    "存储系统"
+  ],
+  "answerFigures": [
+   {
+    "file": "02325-202410-q28-ans.png",
+    "caption": "答28图",
+    "desc": "组相联 Cache 比较对法 LRU 逻辑图"
+   }
   ]
  },
  {
@@ -545,6 +622,20 @@
   "src_answer": "02325-202410-参考答案.pdf",
   "modules": [
    "流水线"
+  ],
+  "answerFigures": [
+   {
+    "file": "02325-202410-q29-ans.jpeg",
+    "caption": "答29图",
+    "desc": "动态多功能流水线时空图"
+   }
+  ],
+  "stemFigures": [
+   {
+    "file": "02325-202410-q29-stem.jpg",
+    "caption": "原题影像 · 第29题",
+    "desc": "从原卷扫描件裁切，含题目中的图表"
+   }
   ]
  },
  {
@@ -652,6 +743,13 @@
   "src_answer": "02325-202504-参考答案.pdf",
   "modules": [
    "互连网络"
+  ],
+  "answerFigures": [
+   {
+    "file": "02325-202504-q27-ans.jpeg",
+    "caption": "答27图",
+    "desc": "多级立方体互连网络拓扑图"
+   }
   ]
  },
  {
@@ -667,6 +765,13 @@
   "src_answer": "02325-202504-参考答案.pdf",
   "modules": [
    "流水线"
+  ],
+  "stemFigures": [
+   {
+    "file": "02325-202504-q28-stem.jpg",
+    "caption": "原题影像 · 第28题",
+    "desc": "从原卷扫描件裁切，含题目中的图表"
+   }
   ]
  },
  {
@@ -682,6 +787,13 @@
   "src_answer": "02325-202504-参考答案.pdf",
   "modules": [
    "系统结构基本概念与指令系统"
+  ],
+  "answerFigures": [
+   {
+    "file": "02325-202504-q29-ans.jpeg",
+    "caption": "答29图",
+    "desc": "哈夫曼树"
+   }
   ]
  },
  {
@@ -803,6 +915,30 @@
   "src_answer": "02325-202604-参考答案.pdf",
   "modules": [
    "存储系统"
+  ],
+  "answerFigures": [
+   {
+    "file": "02325-202604-q28-ans1.png",
+    "caption": "答28表-1",
+    "desc": "FIFO 页面置换过程表"
+   },
+   {
+    "file": "02325-202604-q28-ans2.jpeg",
+    "caption": "答28表-2",
+    "desc": "LRU 页面置换过程表"
+   },
+   {
+    "file": "02325-202604-q28-ans3.jpeg",
+    "caption": "答28表-3",
+    "desc": "OPT 页面置换过程表"
+   }
+  ],
+  "stemFigures": [
+   {
+    "file": "02325-202604-q28-stem.jpg",
+    "caption": "原题影像 · 第28题",
+    "desc": "从原卷扫描件裁切，含题目中的图表"
+   }
   ]
  },
  {
@@ -818,6 +954,13 @@
   "src_answer": "02325-202604-参考答案.pdf",
   "modules": [
    "流水线"
+  ],
+  "answerFigures": [
+   {
+    "file": "02325-202604-q29-ans.jpeg",
+    "caption": "答29图",
+    "desc": "六功能段线性静态多功能流水线时空图"
+   }
   ]
  },
  {
@@ -1197,6 +1340,13 @@
   "src_answer": "04741-202404-参考答案.pdf",
   "modules": [
    "数据链路层"
+  ],
+  "stemFigures": [
+   {
+    "file": "04741-202404-q42-stem.jpg",
+    "caption": "原题影像 · 第42题",
+    "desc": "从原卷扫描件裁切，含题目中的图表"
+   }
   ]
  },
  {
@@ -1463,6 +1613,13 @@
   "src_answer": "04741-202504-参考答案.pdf",
   "modules": [
    "物理层与数据通信基础"
+  ],
+  "answerFigures": [
+   {
+    "file": "04741-202504-q41-ans.jpeg",
+    "caption": "答41图",
+    "desc": "比特序列 10010110111 的 AMI 码信号波形"
+   }
   ]
  },
  {
@@ -1479,6 +1636,13 @@
   "modules": [
    "数据链路层",
    "网络层"
+  ],
+  "stemFigures": [
+   {
+    "file": "04741-202504-q42-stem.jpg",
+    "caption": "原题影像 · 第42题",
+    "desc": "从原卷扫描件裁切，含题目中的图表"
+   }
   ]
  },
  {
@@ -1615,6 +1779,13 @@
   "src_answer": "04741-202604-参考答案.pdf",
   "modules": [
    "网络层"
+  ],
+  "stemFigures": [
+   {
+    "file": "04741-202604-q42-stem.jpg",
+    "caption": "原题影像 · 第42题",
+    "desc": "从原卷扫描件裁切，含题目中的图表"
+   }
   ]
  },
  {

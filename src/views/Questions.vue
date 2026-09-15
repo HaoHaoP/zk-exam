@@ -15,8 +15,9 @@ const period  = ref(route.query.period || 'all')
 const qtype   = ref(route.query.qtype || 'all')
 const module  = ref(route.query.module || 'all')
 const mastery = ref(route.query.mastery || 'all')
+const figonly = ref(route.query.fig === '1')
 
-watch([code, period, qtype, module, mastery], () => {
+watch([code, period, qtype, module, mastery, figonly], () => {
   router.replace({
     query: {
       ...(code.value !== '02325' ? { code: code.value } : {}),
@@ -24,6 +25,7 @@ watch([code, period, qtype, module, mastery], () => {
       ...(qtype.value !== 'all' ? { qtype: qtype.value } : {}),
       ...(module.value !== 'all' ? { module: module.value } : {}),
       ...(mastery.value !== 'all' ? { mastery: mastery.value } : {}),
+      ...(figonly.value ? { fig: '1' } : {}),
     },
   })
 })
@@ -42,12 +44,21 @@ const qtypes = computed(() =>
 
 const modules = computed(() => MODULES[code.value])
 
+function hasFig(q) {
+  return (q.answerFigures && q.answerFigures.length) || (q.stemFigures && q.stemFigures.length)
+}
+
+const figCount = computed(() =>
+  questions.filter(q => q.code === code.value).filter(hasFig).length
+)
+
 const list = computed(() =>
   questions
     .filter(q => q.code === code.value)
     .filter(q => period.value === 'all' || q.period === period.value)
     .filter(q => qtype.value === 'all' || q.qtype === qtype.value)
     .filter(q => module.value === 'all' || (q.modules || []).includes(module.value))
+    .filter(q => !figonly.value || hasFig(q))
     .filter(q => {
       if (mastery.value === 'all') return true
       const st = getMastery(masteryKey(q.code, q.period, q.qnum))
@@ -66,10 +77,12 @@ const grouped = computed(() => {
 })
 
 function reset() {
-  period.value = 'all'; qtype.value = 'all'; module.value = 'all'; mastery.value = 'all'
+  period.value = 'all'; qtype.value = 'all'; module.value = 'all'
+  mastery.value = 'all'; figonly.value = false
 }
 const isFiltered = computed(() =>
-  period.value !== 'all' || qtype.value !== 'all' || module.value !== 'all' || mastery.value !== 'all'
+  period.value !== 'all' || qtype.value !== 'all' || module.value !== 'all' ||
+  mastery.value !== 'all' || figonly.value
 )
 </script>
 
@@ -79,6 +92,8 @@ const isFiltered = computed(() =>
     <h1 class="t-title">真题大题</h1>
     <p class="t-note">
       单选与填空题不进答题库（填空题另见「考点速记」）。每题标注来源，可跳转原卷 PDF 逐字核对。
+      含图表的题已把原卷对应区域裁成「原题影像」，答案里的图也一并抽出（答案附图），
+      图片可点开放大、双击切换倍率。
     </p>
   </header>
 
@@ -119,6 +134,14 @@ const isFiltered = computed(() =>
       class="chipbtn" :class="{ 'is-on': module === m }"
       @click="module = m"
     >{{ m }}</button>
+  </div>
+
+  <!-- 含图筛选 -->
+  <div class="filters">
+    <button
+      class="chipbtn" :class="{ 'is-on': figonly }"
+      @click="figonly = !figonly"
+    >只看含图的题（{{ figCount }}）</button>
   </div>
 
   <!-- 掌握度 -->
