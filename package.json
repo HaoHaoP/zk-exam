@@ -1,0 +1,20 @@
+{
+  "name": "zk-exam",
+  "private": true,
+  "version": "1.0.0",
+  "description": "自考 02325 计算机系统结构 / 04741 计算机网络原理 · 近三年大题精练",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173"
+  },
+  "dependencies": {
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "vite": "^6.0.7"
+  }
+}

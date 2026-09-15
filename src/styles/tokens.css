@@ -1,0 +1,93 @@
+/* ============================================================
+   设计 token · 「试卷 / 答题卡」方向
+   取自自考真题的物质世界：试卷油墨、冷白纸、批改红、密封线靛、2B 铅笔灰
+   ============================================================ */
+
+:root {
+  /* --- 色彩 --- */
+  --ink:        #141C26;  /* 试卷油墨：正文、主标题 */
+  --ink-2:      #2C3745;  /* 次级墨：题头、次要文字 */
+  --ink-3:      #55607090;/* 注释墨：说明、页脚 */
+  --paper:      #F7F7F4;  /* 冷白纸：页面底 */
+  --paper-2:    #EFEFEA;  /* 纸张深一层：卡片底、输入框 */
+  --paper-3:    #DEDED6;  /* 纸纹边线：分隔、边框 */
+  --red:        #C8342B;  /* 批改红：答案、强调、错标记 */
+  --red-soft:   #F5E4E1;  /* 批改红底纹 */
+  --indigo:     #3A5A8C;  /* 密封线靛：分区、题号、链接 */
+  --indigo-soft:#E5EAF3;  /* 靛底纹 */
+  --pencil:     #61686F;  /* 2B 铅笔灰：次要文字（对纸底约 4.9:1，达 AA） */
+  --pencil-2:   #9198A1;  /* 浅铅笔灰：仅用于空态、占位、非文字描边，不承载正文 */
+
+  /* 考点模块色（7 个模块，取低饱和度以免喧哗） */
+  --m1: #3A5A8C; --m2: #6B7F58; --m3: #A05E4A; --m4: #6E5A87;
+  --m5: #4C7F86; --m6: #96703C; --m7: #7A6A5D;
+
+  /* --- 字体 --- */
+  --font-display: 'Songti SC', 'STSong', 'SimSun', 'Noto Serif CJK SC',
+                  'Source Han Serif SC', 'Source Han Serif CN', serif;
+  --font-body: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB',
+               'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas,
+               'Liberation Mono', monospace;
+
+  /* --- 字号（移动优先，桌面只放大不回缩） --- */
+  --fs-2xs: 10px;
+  --fs-xs:  11px;
+  --fs-sm:  13px;
+  --fs-md:  15px;   /* 正文基准 */
+  --fs-lg:  17px;
+  --fs-xl:  21px;
+  --fs-2xl: 26px;
+  --fs-3xl: 34px;
+
+  --lh-tight: 1.25;
+  --lh-body:  1.75;   /* 中文正文需要松行距才好读 */
+  --lh-loose: 1.9;
+
+  /* --- 间距（4px 基准） --- */
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px;
+  --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+
+  /* --- 圆角：纸面感要克制，不用大圆角 --- */
+  --r-xs: 1px;
+  --r-sm: 2px;
+  --r-md: 4px;
+  --r-lg: 6px;
+
+  /* --- 描边 --- */
+  --line:        1px solid var(--paper-3);
+  --line-ink:    1px solid var(--ink);
+  --line-strong: 2px solid var(--ink);
+  --line-red:    1px solid var(--red);
+  --line-dashed: 1px dashed var(--paper-3);
+
+  /* --- 阴影：只给纸一点厚度，不做发光 --- */
+  --shadow-paper:  0 1px 2px rgba(20, 28, 38, .06);
+  --shadow-raised: 0 2px 8px rgba(20, 28, 38, .10);
+
+  /* --- 布局 --- */
+  --page-max: 880px;
+  --page-pad: 16px;
+
+  /* --- 动效 --- */
+  --ease: cubic-bezier(.32, .72, 0, 1);
+  --dur-fast: 120ms;
+  --dur-mid: 240ms;
+}
+
+@media (min-width: 720px) {
+  :root {
+    --page-pad: 32px;
+    --fs-3xl: 40px;
+  }
+}
+
+/* 尊重系统「减少动效」设置 */
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-fast: 0ms; --dur-mid: 0ms; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}
