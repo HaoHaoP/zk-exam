@@ -2,6 +2,8 @@
 import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Lightbox from '../components/Lightbox.vue'
+import Tex from '../components/Tex.vue'
+import 'katex/dist/katex.min.css'
 import { formulas, SUBJECTS } from '../lib/data'
 
 const route = useRoute()
@@ -83,8 +85,14 @@ function rich(s) {
             <span class="fcard__toggle t-mono">{{ isOpen(it.id) ? '收起' : '展开' }}</span>
           </button>
 
-          <div class="fcard__formula fmla">{{ it.formula }}</div>
-          <div v-if="it.alt" class="fcard__alt fmla">{{ it.alt }}</div>
+          <div class="fcard__formula">
+            <Tex v-if="it.latex" :tex="it.latex" display />
+            <span v-else class="fmla">{{ it.formula }}</span>
+          </div>
+          <div v-if="it.altLatex || it.alt" class="fcard__alt">
+            <Tex v-if="it.altLatex" :tex="it.altLatex" />
+            <span v-else class="fmla">{{ it.alt }}</span>
+          </div>
 
           <div v-if="isOpen(it.id)" class="fcard__body">
             <!-- 符号说明 -->
@@ -111,7 +119,13 @@ function rich(s) {
                 <span class="fsec__src t-mono">{{ it.example.source }}</span>
               </div>
               <p class="fsec__sub">{{ it.example.setup }}</p>
-              <pre class="calc fmla">{{ it.example.calc }}</pre>
+              <div v-if="it.calcLatex && it.calcLatex.length" class="calc">
+                <div v-for="(line, i) in it.calcLatex" :key="i" class="calc__line">
+                  <Tex :tex="line" display />
+                </div>
+                <p v-if="it.calcNote" class="calc__note">{{ it.calcNote }}</p>
+              </div>
+              <pre v-else class="calc fmla">{{ it.example.calc }}</pre>
             </div>
 
             <div v-if="it.units" class="fcard__units t-note">
@@ -189,8 +203,6 @@ function rich(s) {
   background: var(--paper-2);
   border-bottom: 1px dashed var(--paper-3);
   overflow-x: auto;
-  white-space: pre-wrap;
-  word-break: break-word;
 }
 
 .fcard__alt {
@@ -200,7 +212,6 @@ function rich(s) {
   background: var(--paper-2);
   border-bottom: 1px solid var(--paper-3);
   overflow-x: auto;
-  white-space: pre-wrap;
 }
 
 .fcard__body { padding: var(--s4); }
@@ -254,16 +265,30 @@ function rich(s) {
   border: var(--line);
   border-left: 3px solid var(--red);
   border-radius: var(--r-sm);
-  font-size: var(--fs-xs);
-  line-height: 1.8;
   overflow-x: auto;
-  white-space: pre-wrap;
-  word-break: break-word;
+}
+
+.calc__line + .calc__line {
+  margin-top: var(--s2);
+  padding-top: var(--s2);
+  border-top: 1px dashed var(--paper-3);
+}
+
+.calc__note {
+  margin: var(--s3) 0 0;
+  padding-top: var(--s2);
+  border-top: 1px solid var(--paper-3);
+  font-size: var(--fs-xs);
+  color: var(--ink-2);
+  line-height: var(--lh-body);
+  font-family: var(--font-body);
 }
 
 .fcard__units { margin-top: var(--s3); }
 
 @media (min-width: 700px) {
-  .fgroup__list { grid-template-columns: 1fr 1fr; }
+  /* align-items:start 关键：默认 stretch 会把同一行的卡片拉到等高，
+     展开一张时旁边那张会被视觉上"一并撑开"。 */
+  .fgroup__list { grid-template-columns: 1fr 1fr; align-items: start; }
 }
 </style>

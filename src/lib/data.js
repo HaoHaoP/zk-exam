@@ -71,7 +71,9 @@ function esc(s) {
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 }
 
-/* 视觉转录保留了少量 LaTeX 记号，这里只做无损的符号替换，不重排公式结构 */
+/* 视觉转录保留了少量 LaTeX 记号。
+   有 KaTeX 之后：先把行内 $...$ 抽出来交给 KaTeX 真渲染，
+   剩余裸记号才走符号替换兜底（不重排公式结构，只做无损映射）。 */
 const MATH_MAP = [
   [/\\sum_\{([^}]*)\}\^\{([^}]*)\}/g, 'Σ($1→$2)'],
   [/\\frac\{([^{}]*)\}\{([^{}]*)\}/g, '($1)/($2)'],
@@ -98,14 +100,42 @@ export function tidyMath(s) {
   return out
 }
 
+/* LaTeX 渲染（供 renderRich 与公式页复用）。
+   注意：Vite 是 ESM，必须静态 import，不能用 require()。 */
+import katex from 'katex'
+
+export function hasInlineTex(s) {
+  return /\$[^$]{2,}\$/.test(String(s || ''))
+}
+/** 渲染一段行内 LaTeX；失败则退回转义原文（不抛错、不崩页面） */
+export function texInline(tex) {
+  try {
+    return katex.renderToString(tex, { displayMode: false, throwOnError: true, strict: 'ignore' })
+  } catch {
+    return esc(tex)
+  }
+}
+
 /* 检索用归一：去掉所有空白，避免 PDF 抽取的换行把词切断 */
 export function normForSearch(s) {
   return String(s || '').replace(/\s+/g, '').toLowerCase()
 }
 
+/** 把一行文本里的 $...$ 段落替换成 KaTeX HTML（输入已转义，$ 与 \ 仍在） */
+function inlineTexToHtml(escapedLine) {
+  return escapedLine.replace(/\$([^$]{2,})\$/g, (m, tex) => {
+    try {
+      return katex.renderToString(tex, { displayMode: false, throwOnError: true, strict: 'ignore' })
+    } catch {
+      return m
+    }
+  })
+}
+
 export function renderRich(text) {
   if (!text) return ''
-  const lines = esc(tidyMath(text)).split('\n')
+  const raw = String(text)
+  const lines = raw.split('\n')
   const out = []
   let table = null
 
@@ -132,8 +162,11 @@ export function renderRich(text) {
       continue
     }
     flush()
-    // 连续下划线（填空题空位）转成可见的填空线
-    out.push(ln.replace(/_{3,}/g, '<span class="blank">＿</span>'))
+    // 有 $...$ → 先转义再交 KaTeX；无 → 走符号兜底
+    const body = hasInlineTex(ln)
+      ? inlineTexToHtml(esc(ln))
+      : esc(tidyMath(ln))
+    out.push(body.replace(/_{3,}/g, '<span class="blank">＿</span>'))
   }
   flush()
   return out.join('\n')
