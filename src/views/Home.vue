@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import {
-  questions, fills, handouts, predictSets, topics,
+  questions, fills, handouts, predictSets, topics, flatFormulas,
   SUBJECTS, periodLabel, masteryStats, resetMastery,
 } from '../lib/data'
 
@@ -39,6 +39,7 @@ const stats = computed(() => ({
   fill: fills.length,
   handout: handouts.length,
   predict: predictSets.reduce((n, s) => n + s.questions.length, 0),
+  formulas: flatFormulas().length,
   p02325: Object.keys(topics.heat['02325'] || {}).length,
   p04741: Object.keys(topics.heat['04741'] || {}).length,
 }))
@@ -114,6 +115,10 @@ const isBig = (seg) => seg.label.includes('应用') || seg.label === '综合' ||
         <span class="tile__l">预测题 · {{ predictSets.length }} 套
           <span class="tile__hint">非真题</span>
         </span>
+      </RouterLink>
+      <RouterLink to="/formulas" class="tile">
+        <span class="tile__n t-mono">{{ stats.formulas }}</span>
+        <span class="tile__l">公式速查 · 含真题代入</span>
       </RouterLink>
       <RouterLink to="/topics" class="tile">
         <span class="tile__n t-mono">{{ stats.p02325 + stats.p04741 }}</span>

@@ -7,6 +7,7 @@ const tabs = [
   { name: 'home', label: '总览', to: '/' },
   { name: 'questions', label: '真题', to: '/questions' },
   { name: 'predict', label: '预测', to: '/predict' },
+  { name: 'formulas', label: '公式', to: '/formulas' },
   { name: 'topics', label: '考点', to: '/topics' },
   { name: 'cards', label: '速记', to: '/cards' },
   { name: 'search', label: '搜索', to: '/search' },

@@ -8,9 +8,23 @@ import topicsRaw from '../data/topics.json'
 import handoutRaw from '../data/handout_qa.json'
 import predict02325 from '../data/predict_02325.json'
 import predict04741 from '../data/predict_04741.json'
+import formulasRaw from '../data/formulas.json'
 
 export const questions = questionsRaw
 export const fills = fillRaw
+/** 公式库：{ 02325: [{group, items:[{id,name,formula,...}]}], 04741: [...] } */
+export const formulas = { '02325': formulasRaw['02325'], '04741': formulasRaw['04741'] }
+export const formulasMeta = { note: formulasRaw._note }
+/** 扁平化的公式列表，便于搜索 */
+export function flatFormulas() {
+  const out = []
+  for (const code of Object.keys(formulas)) {
+    for (const g of formulas[code]) {
+      for (const it of g.items) out.push({ code, group: g.group, ...it })
+    }
+  }
+  return out
+}
 export const topics = topicsRaw
 export const handouts = handoutRaw
 export const predictSets = [...predict02325.sets, ...predict04741.sets]
@@ -220,6 +234,23 @@ export function buildSearchIndex() {
         text: q.stem, answer: q.answer, modules: q.modules, setId: s.id, setTitle: s.title,
       }))
     }
+  }
+  // 公式：把公式本体、符号说明、为什么、实例都纳入检索，
+  // 这样搜「加速比」「香农」「子网掩码」都能直接落到公式卡
+  for (const it of flatFormulas()) {
+    const symbolText = it.symbols.map(s => `${s[0]}：${s[1]}`).join('\n')
+    idx.push(withNorm({
+      kind: '公式',
+      code: it.code,
+      period: '',
+      qnum: null,
+      type: it.group,
+      text: `${it.name}\n${it.formula}\n${it.alt || ''}`,
+      answer: `${it.why}\n${symbolText}\n单位：${it.units || ''}\n` +
+        `实例（${it.example.source}）：${it.example.setup}\n${it.example.calc}`,
+      modules: [it.group],
+      formulaId: it.id,
+    }))
   }
   return idx
 }

@@ -5,6 +5,7 @@ const routes = [
   { path: '/questions', name: 'questions', component: () => import('./views/Questions.vue'), meta: { title: '真题大题' } },
   { path: '/predict', name: 'predict', component: () => import('./views/Predict.vue'), meta: { title: '预测题' } },
   { path: '/topics', name: 'topics', component: () => import('./views/Topics.vue'), meta: { title: '考点地图' } },
+  { path: '/formulas', name: 'formulas', component: () => import('./views/Formulas.vue'), meta: { title: '公式速查' } },
   { path: '/cards', name: 'cards', component: () => import('./views/Cards.vue'), meta: { title: '考点速记' } },
   { path: '/search', name: 'search', component: () => import('./views/Search.vue'), meta: { title: '搜索' } },
 ]
